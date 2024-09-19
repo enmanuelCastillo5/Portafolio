@@ -15,7 +15,43 @@ namespace Portafolio.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var proyectos = ObtenerProyectos().Take(3).ToList();
+            var modelo = new HomeIndexViewModel() { Proyectos = proyectos };
+            return View(modelo);
+        }
+
+        private List<Proyecto> ObtenerProyectos()
+        {
+            return new List<Proyecto>() {
+                new Proyecto
+            {
+                Titulo = "web develoment",
+                Descripcion = "desarrollo de entornos web",
+                Link = "www.google.com",
+                ImageURL = "imagenes/node.png"
+            },
+            new Proyecto
+                {
+                    Titulo = "web develoment",
+                    Descripcion = "desarrollo de entornos web",
+                    Link = "www.google.com",
+                    ImageURL = "/imagenes/asp.png"
+                },
+            new Proyecto
+                {
+                    Titulo = "web develoment",
+                    Descripcion = "desarrollo de entornos web",
+                    Link = "www.google.com",
+                    ImageURL = "/imagenes/rails.png"
+                },
+            new Proyecto
+                {
+                    Titulo = "web develoment",
+                    Descripcion = "desarrollo de entornos web",
+                    Link = "www.google.com",
+                    ImageURL = "/imagenes/react.svg"
+            }
+        };
         }
 
         public IActionResult Privacy()
