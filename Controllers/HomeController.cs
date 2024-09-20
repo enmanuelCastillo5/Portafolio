@@ -7,25 +7,15 @@ namespace Portafolio.Controllers
 {   
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly IRepositorioProyectos repositorioProyectos;
-        
-        public HomeController(ILogger<HomeController> logger,
-            IRepositorioProyectos repositorioProyectos)
+
+        public HomeController(IRepositorioProyectos repositorioProyectos)
         {
-            _logger = logger;
             this.repositorioProyectos = repositorioProyectos;
         }
 
         public IActionResult Index()
         {
-            _logger.LogTrace("este es un mensaje de Trace");
-            _logger.LogDebug("este es un mensaje de Debug");
-            _logger.LogInformation("este es un mensaje de Information");
-            _logger.LogWarning("este es un mensaje de Warning");
-            _logger.LogError("este es un mensaje de Error");
-            _logger.LogCritical("este es un mensaje de Critical");
-
             var proyectos = repositorioProyectos.ObtenerProyectos().Take(3).ToList();
             var modelo = new HomeIndexViewModel() {Proyectos = proyectos};
             return View(modelo);
@@ -33,7 +23,24 @@ namespace Portafolio.Controllers
 
         
 
-        public IActionResult Privacy()
+        public IActionResult Proyectos()
+        {
+            var proyectos = repositorioProyectos.ObtenerProyectos();
+            return View(proyectos);
+        }
+
+        public IActionResult Contacto()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Contacto(ContactoViewModel contactoViewModel)
+        {
+            return RedirectToAction("Gracias");
+        }
+
+        public IActionResult Gracias()
         {
             return View();
         }
